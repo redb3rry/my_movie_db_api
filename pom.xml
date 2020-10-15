@@ -14,10 +14,6 @@
 	<name>my-movie-db-api</name>
 	<description>API for the My Movie DB project</description>
 
-	<properties>
-		<java.version>11</java.version>
-	</properties>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
