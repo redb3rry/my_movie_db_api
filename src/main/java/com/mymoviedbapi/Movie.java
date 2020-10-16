@@ -19,6 +19,28 @@ public class Movie {
     @Column(name = "movie_director", nullable = false)
     private String movieDirector;
 
+    @Column(name = "movie_genre", nullable = false)
+    private String movieGenre;
+
+    @Column(name = "movie_image", nullable = true)
+    private String movieImage;
+
+    public void setMovieGenre(String movieGenre) {
+        this.movieGenre = movieGenre;
+    }
+
+    public void setMovieImage(String movieImage) {
+        this.movieImage = movieImage;
+    }
+
+    public String getMovieGenre() {
+        return movieGenre;
+    }
+
+    public String getMovieImage() {
+        return movieImage;
+    }
+
     public Movie() {
     }
 
@@ -26,9 +48,10 @@ public class Movie {
         this.id = id;
     }
 
-    public Movie(String movieName, String movieDirector) {
+    public Movie(String movieName, String movieDirector, String movieGenre) {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
+        this.movieGenre = movieGenre;
     }
 
     public void setMovieName(String movieName) {
