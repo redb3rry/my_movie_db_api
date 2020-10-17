@@ -1,5 +1,7 @@
 package com.mymoviedbapi;
 
+import org.springframework.core.Ordered;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 @ControllerAdvice
 @EnableWebMvc
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class ErrorHandlingControllerAdvice {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
