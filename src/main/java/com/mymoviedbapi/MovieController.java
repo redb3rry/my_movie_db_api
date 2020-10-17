@@ -1,8 +1,10 @@
 package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,8 +37,7 @@ public class MovieController {
 
     //Metoda POST do tworzenia filmu
     @PostMapping("/movies/")
-    public Movie createMovie(@Valid @RequestBody Movie movie)
-        {
+    public Movie createMovie(@Valid @RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
@@ -67,5 +68,11 @@ public class MovieController {
         Map<String,Boolean> response = new HashMap<>();
         response.put("deleted", true);
         return response;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
