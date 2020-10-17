@@ -69,10 +69,4 @@ public class MovieController {
         response.put("deleted", true);
         return response;
     }
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    ResponseEntity<String> handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
-        return new ResponseEntity<>("not valid due to validation error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
-    }
 }
