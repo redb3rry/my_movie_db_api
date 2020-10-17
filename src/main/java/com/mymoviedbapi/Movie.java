@@ -51,10 +51,11 @@ public class Movie {
         this.id = id;
     }
 
-    public Movie(String movieName, String movieDirector, String movieGenre) {
+    public Movie(String movieName, String movieDirector, String movieGenre, int releaseYear) {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
+        this.releaseYear = releaseYear;
     }
 
     public void setMovieName(String movieName) {
@@ -65,7 +66,7 @@ public class Movie {
         this.movieDirector = movieDirector;
     }
 
-    public void setReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
+    public void setMovieReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
 
     public long getId() {
         return id;
@@ -79,7 +80,7 @@ public class Movie {
         return movieDirector;
     }
 
-    public int getReleaseYear() { return releaseYear; }
+    public int getMovieReleaseYear() { return releaseYear; }
 }
 
 interface MovieRepository extends CrudRepository<Movie, Long> {

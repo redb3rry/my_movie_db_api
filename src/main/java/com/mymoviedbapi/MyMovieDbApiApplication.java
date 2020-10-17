@@ -19,8 +19,8 @@ public class MyMovieDbApiApplication {
     @Bean
     ApplicationRunner applicationRunner(MovieRepository movieRepository) {
         return args -> {
-            movieRepository.save(new Movie("name1", "dir1", "genr1"));
-            movieRepository.save(new Movie("name2", "dir2", "genr2"));
+            movieRepository.save(new Movie("name1", "dir1", "genr1", 1999));
+            movieRepository.save(new Movie("name2", "dir2", "genr2", 2000));
         };
     }
 
