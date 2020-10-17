@@ -4,6 +4,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 @Entity
 @Table(name = "movies")
@@ -22,6 +23,7 @@ public class Movie {
     @Column(name = "movie_genre", nullable = false)
     private String movieGenre;
 
+    @Min(1888)
     @Column(name = "movie_release_year", nullable = false)
     private int movieReleaseYear;
 
