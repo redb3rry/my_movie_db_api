@@ -36,11 +36,6 @@ class HelloController {
 
     @GetMapping("/")
     String hello() {
-        return "Hello World";
-    }
-
-    @GetMapping("/movies")
-    List<Movie> movies() {
-        return (List<Movie>) movieRepository.findAll();
+        return "Welcome to the MyMovieDB API";
     }
 }
