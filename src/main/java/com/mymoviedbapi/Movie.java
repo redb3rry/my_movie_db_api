@@ -22,6 +22,9 @@ public class Movie {
     @Column(name = "movie_genre", nullable = false)
     private String movieGenre;
 
+    @Column(name = "release_year", nullable = false)
+    private int releaseYear;
+
     @Column(name = "movie_image", nullable = true)
     private String movieImage;
 
@@ -62,6 +65,8 @@ public class Movie {
         this.movieDirector = movieDirector;
     }
 
+    public void setReleaseYear(int releaseYear) { this.releaseYear = releaseYear; }
+
     public long getId() {
         return id;
     }
@@ -73,6 +78,8 @@ public class Movie {
     public String getMovieDirector() {
         return movieDirector;
     }
+
+    public int getReleaseYear() { return releaseYear; }
 }
 
 interface MovieRepository extends CrudRepository<Movie, Long> {

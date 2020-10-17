@@ -17,13 +17,13 @@ public class MovieController {
     private MovieRepository movieRepository;
 
     //Metoda GET do wyciągnięcia wszystkich filmów
-    @GetMapping("/movies")
+    @GetMapping("/movies/")
     public List<Movie> getAllMovies(){
         return (List<Movie>) movieRepository.findAll();
     }
 
     //Metoda GET do wyciągnięcia konkretnego filmu
-    @GetMapping("/movies/{id}")
+    @GetMapping("/movies/{id}/")
     public ResponseEntity<Movie> getMovieById(@PathVariable(value = "id") Long movieId)
         throws Exception{
         Movie movie = movieRepository.findById(movieId)
@@ -32,13 +32,13 @@ public class MovieController {
     }
 
     //Metoda POST do tworzenia filmu
-    @PostMapping("/movies")
+    @PostMapping("/movies/")
     public Movie createMovie(@Valid @RequestBody Movie movie){
         return movieRepository.save(movie);
     }
 
     //Metoda PUT do edycji filmu
-    @PutMapping("/movies/{id}")
+    @PutMapping("/movies/{id}/")
     public ResponseEntity<Movie> updateMovie(
             @PathVariable(value="id") Long movieId, @Valid @RequestBody Movie movieDetails
     ) throws Exception{
@@ -54,7 +54,7 @@ public class MovieController {
     }
 
     //Metoda DELETE do usuwania filmu
-    @DeleteMapping("/movies/{id}")
+    @DeleteMapping("/movies/{id}/")
     public Map<String, Boolean> deleteMovie(@PathVariable(value="id") Long movieId) throws Exception{
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new Exception("Movie " + movieId + " not found"));
