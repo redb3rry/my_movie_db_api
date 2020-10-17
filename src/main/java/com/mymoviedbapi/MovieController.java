@@ -2,9 +2,9 @@ package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,14 +33,14 @@ public class MovieController {
 
     //Metoda POST do tworzenia filmu
     @PostMapping("/movies")
-    public Movie createMovie(@Validated @RequestBody Movie movie){
+    public Movie createMovie(@Valid @RequestBody Movie movie){
         return movieRepository.save(movie);
     }
 
     //Metoda PUT do edycji filmu
     @PutMapping("/movies/{id}")
     public ResponseEntity<Movie> updateMovie(
-            @PathVariable(value="id") Long movieId, @Validated @RequestBody Movie movieDetails
+            @PathVariable(value="id") Long movieId, @Valid @RequestBody Movie movieDetails
     ) throws Exception{
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new Exception("Movie " + movieId + " not found"));
