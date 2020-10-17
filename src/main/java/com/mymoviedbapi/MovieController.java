@@ -49,6 +49,7 @@ public class MovieController {
         movie.setMovieGenre(movieDetails.getMovieGenre());
         movie.setMovieImage(movieDetails.getMovieImage());
         movie.setMovieReleaseYear(movieDetails.getMovieReleaseYear());
+        movie.setMovieDescription(movieDetails.getMovieDescription());
 
         final Movie updatedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(updatedMovie);

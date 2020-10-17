@@ -28,6 +28,9 @@ public class Movie {
     @Column(name = "movie_image", nullable = true)
     private String movieImage;
 
+    @Column(name = "movie_description", nullable = true)
+    private String movieDescription;
+
     public void setMovieGenre(String movieGenre) {
         this.movieGenre = movieGenre;
     }
@@ -68,6 +71,8 @@ public class Movie {
 
     public void setMovieReleaseYear(int releaseYear) { this.movieReleaseYear = releaseYear; }
 
+    public void setMovieDescription(String movieDescription) { this.movieDescription = movieDescription; }
+
     public long getId() {
         return id;
     }
@@ -81,6 +86,8 @@ public class Movie {
     }
 
     public int getMovieReleaseYear() { return movieReleaseYear; }
+
+    public String getMovieDescription() { return movieDescription; }
 }
 
 interface MovieRepository extends CrudRepository<Movie, Long> {
