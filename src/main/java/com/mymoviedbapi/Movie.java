@@ -28,11 +28,13 @@ public class Movie {
     @Column(name = "movie_release_year", nullable = false)
     private int movieReleaseYear;
 
+    @Lob
     @Pattern(regexp = "data:image\\/[A-Za-z]+;base64,.*")
-    @Column(columnDefinition ="TEXT", name ="movie_image", nullable = true)
+    @Column(name ="movie_image", nullable = true)
     private String movieImage;
 
-    @Column(name = "movie_description", columnDefinition ="TEXT", nullable = true)
+    @Lob
+    @Column(name = "movie_description", nullable = true)
     private String movieDescription;
 
     public void setMovieGenre(String movieGenre) {
