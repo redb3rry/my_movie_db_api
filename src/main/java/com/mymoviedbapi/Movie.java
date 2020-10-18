@@ -5,6 +5,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "movies")
@@ -27,6 +28,7 @@ public class Movie {
     @Column(name = "movie_release_year", nullable = false)
     private int movieReleaseYear;
 
+    @Pattern(regexp = "/data:image/[[A-Za-z]^+];base64,*+/")
     @Column(name = "movie_image", nullable = true)
     private String movieImage;
 
