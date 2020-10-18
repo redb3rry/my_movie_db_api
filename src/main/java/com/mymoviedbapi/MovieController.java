@@ -72,10 +72,10 @@ public class MovieController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e){
-        ValidationErrorResponse error = new ValidationErrorResponse();
+    String onMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        String error = "";
         for(FieldError fieldError : e.getBindingResult().getFieldErrors()){
-            error.getViolations().add(new Violation(fieldError.getField(), fieldError.getDefaultMessage()));
+            error += fieldError.getField() + ": " + fieldError.getDefaultMessage() +"\n";
         }
         return error;
     }

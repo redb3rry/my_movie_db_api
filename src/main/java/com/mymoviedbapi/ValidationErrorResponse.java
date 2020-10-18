@@ -5,6 +5,8 @@ import java.util.List;
 
 public class ValidationErrorResponse {
 
+    private List<Violation> violations = new ArrayList<>();
+
     public void setViolations(List<Violation> violations) {
         this.violations = violations;
     }
@@ -12,8 +14,6 @@ public class ValidationErrorResponse {
     public List<Violation> getViolations() {
         return violations;
     }
-
-    private List<Violation> violations = new ArrayList<>();
 
 }
 
