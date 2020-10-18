@@ -1,22 +1,19 @@
 package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping
-@Order(2)
 
 public class MovieController {
     @Autowired
@@ -70,5 +67,16 @@ public class MovieController {
         Map<String,Boolean> response = new HashMap<>();
         response.put("deleted", true);
         return response;
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        ValidationErrorResponse error = new ValidationErrorResponse();
+        for(FieldError fieldError : e.getBindingResult().getFieldErrors()){
+            error.getViolations().add(new Violation(fieldError.getField(), fieldError.getDefaultMessage()));
+        }
+        return error;
     }
 }
