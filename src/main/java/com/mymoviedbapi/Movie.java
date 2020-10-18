@@ -29,10 +29,10 @@ public class Movie {
     private int movieReleaseYear;
 
     @Pattern(regexp = "data:image\\/[A-Za-z]+;base64,.*")
-    @Column(name = "movie_image", nullable = true)
+    @Column(columnDefinition ="TEXT", name ="movie_image", nullable = true)
     private String movieImage;
 
-    @Column(name = "movie_description", nullable = true)
+    @Column(name = "movie_description", columnDefinition ="TEXT", nullable = true)
     private String movieDescription;
 
     public void setMovieGenre(String movieGenre) {
