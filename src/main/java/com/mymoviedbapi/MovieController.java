@@ -30,7 +30,7 @@ public class MovieController {
     public ResponseEntity<Movie> getMovieById(@PathVariable(value = "id") Long movieId)
         throws Exception{
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new IdNotFoundException("Movie " + movieId + " not found"));
+                .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
         return ResponseEntity.ok().body(movie);
     }
 
