@@ -30,7 +30,7 @@ public class MovieController {
     public ResponseEntity<Movie> getMovieById(@PathVariable(value = "id") Long movieId)
         throws Exception{
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new Exception("Movie " + movieId + " not found"));
+                .orElseThrow(() -> new IdNotFoundException("Movie " + movieId + " not found"));
         return ResponseEntity.ok().body(movie);
     }
 
@@ -46,7 +46,7 @@ public class MovieController {
             @PathVariable(value="id") Long movieId, @Valid @RequestBody Movie movieDetails
     ) throws Exception{
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new Exception("Movie " + movieId + " not found"));
+                .orElseThrow(() -> new IdNotFoundException("Movie " + movieId + " not found"));
         movie.setMovieName(movieDetails.getMovieName());
         movie.setMovieDirector(movieDetails.getMovieDirector());
         movie.setMovieGenre(movieDetails.getMovieGenre());
@@ -78,5 +78,18 @@ public class MovieController {
             error += fieldError.getField() + ": " + fieldError.getDefaultMessage() +"\n";
         }
         return error;
+    }
+
+    @ExceptionHandler(IdNotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    String onIdNotFoundException(IdNotFoundException e){
+        return e.getMessage();
+    }
+
+    public class IdNotFoundException extends Exception {
+        public IdNotFoundException(String errorMessage) {
+            super(errorMessage);
+        }
     }
 }

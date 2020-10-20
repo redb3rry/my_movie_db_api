@@ -24,12 +24,11 @@ public class Movie {
     @Column(name = "movie_genre", nullable = false)
     private String movieGenre;
 
-    @Min(1888)
+    @Min(value = 1888, message = "Movie release year must be greater than 1888.")
     @Column(name = "movie_release_year", nullable = false)
     private int movieReleaseYear;
 
     @Lob
-    @Pattern(regexp = "data:image\\/[A-Za-z]+;base64,.*")
     @Column(name ="movie_image", nullable = true)
     private String movieImage;
 
