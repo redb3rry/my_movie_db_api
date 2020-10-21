@@ -55,8 +55,4 @@ class HelloController {
         return "Welcome to the MyMovieDB API";
     }
 
-    @GetMapping("/movies")
-    String movies(){
-
-    }
 }
