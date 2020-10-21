@@ -52,6 +52,15 @@ public class Movie {
         return movieImage;
     }
 
+    public Movie(String movieName, String movieDirector, String movieGenre, int movieReleaseYear, String movieImage, String movieDescription) {
+        this.movieName = movieName;
+        this.movieDirector = movieDirector;
+        this.movieGenre = movieGenre;
+        this.movieReleaseYear = movieReleaseYear;
+        this.movieImage = movieImage;
+        this.movieDescription = movieDescription;
+    }
+
     public Movie() {
     }
 
