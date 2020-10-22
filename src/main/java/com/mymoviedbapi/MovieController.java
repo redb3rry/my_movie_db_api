@@ -24,14 +24,14 @@ public class MovieController {
 
     //Metoda GET do wyciągnięcia wszystkich filmów
     @GetMapping("/movies/")
-    public List<Movie> getAllMovies(){
+    public List<Movie> getAllMovies() {
         return (List<Movie>) movieRepository.findAll();
     }
 
     //Metoda GET do wyciągnięcia konkretnego filmu
     @GetMapping("/movies/{id}/")
     public ResponseEntity<Movie> getMovieById(@PathVariable(value = "id") Long movieId)
-        throws Exception{
+            throws Exception {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
         return ResponseEntity.ok().body(movie);
@@ -46,8 +46,8 @@ public class MovieController {
     //Metoda PUT do edycji filmu
     @PutMapping("/movies/{id}/")
     public ResponseEntity<Movie> updateMovie(
-            @PathVariable(value="id") Long movieId, @Valid @RequestBody Movie movieDetails
-    ) throws Exception{
+            @PathVariable(value = "id") Long movieId, @Valid @RequestBody Movie movieDetails
+    ) throws Exception {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
         movie.setMovieName(movieDetails.getMovieName());
@@ -61,21 +61,13 @@ public class MovieController {
         return ResponseEntity.ok(updatedMovie);
     }
 
-//    @RequestMapping(value = "/movies/{id}/", method = RequestMethod.OPTIONS)
-//    public ResponseEntity options(){
-//        return ResponseEntity
-//                .ok()
-//                .allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PUT)
-//                .build();
-//    }
-
     //Metoda DELETE do usuwania filmu
     @DeleteMapping("/movies/{id}/")
-    public Map<String, Boolean> deleteMovie(@PathVariable(value="id") Long movieId) throws Exception{
+    public Map<String, Boolean> deleteMovie(@PathVariable(value = "id") Long movieId) throws Exception {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new Exception("Movie with ID " + movieId + " not found"));
         movieRepository.delete(movie);
-        Map<String,Boolean> response = new HashMap<>();
+        Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", true);
         return response;
     }
@@ -83,10 +75,10 @@ public class MovieController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    String onMethodArgumentNotValidException(MethodArgumentNotValidException e){
+    String onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         String error = "";
-        for(FieldError fieldError : e.getBindingResult().getFieldErrors()){
-            error += fieldError.getField() + ": " + fieldError.getDefaultMessage() +"\n";
+        for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
+            error += fieldError.getField() + ": " + fieldError.getDefaultMessage() + "\n";
         }
         return error;
     }
@@ -94,7 +86,7 @@ public class MovieController {
     @ExceptionHandler(IdNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    String onIdNotFoundException(IdNotFoundException e){
+    String onIdNotFoundException(IdNotFoundException e) {
         return e.getMessage();
     }
 
