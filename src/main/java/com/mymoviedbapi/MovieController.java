@@ -60,11 +60,11 @@ public class MovieController {
         return ResponseEntity.ok(updatedMovie);
     }
 
-    @RequestMapping(value = "/option/", method = RequestMethod.OPTIONS)
+    @RequestMapping(value = "/options/", method = RequestMethod.OPTIONS)
     public ResponseEntity options(){
         return ResponseEntity
                 .ok()
-                .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.OPTIONS)
+                .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.OPTIONS, HttpMethod.DELETE, HttpMethod.PUT)
                 .build();
     }
 
