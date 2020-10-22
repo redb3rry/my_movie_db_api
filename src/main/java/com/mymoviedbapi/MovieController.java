@@ -7,6 +7,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -56,6 +57,11 @@ public class MovieController {
 
         final Movie updatedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(updatedMovie);
+    }
+
+    @RequestMapping(value = "/option/", method = RequestMethod.OPTIONS)
+    public ResponseEntity options(){
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     //Metoda DELETE do usuwania filmu
