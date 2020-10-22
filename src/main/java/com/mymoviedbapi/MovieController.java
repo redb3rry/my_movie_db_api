@@ -16,6 +16,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping
+@CrossOrigin
 
 public class MovieController {
     @Autowired
