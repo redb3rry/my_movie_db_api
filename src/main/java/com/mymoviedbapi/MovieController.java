@@ -1,6 +1,7 @@
 package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -61,7 +62,10 @@ public class MovieController {
 
     @RequestMapping(value = "/option/", method = RequestMethod.OPTIONS)
     public ResponseEntity options(){
-        return new ResponseEntity(HttpStatus.OK);
+        return ResponseEntity
+                .ok()
+                .allow(HttpMethod.GET, HttpMethod.POST, HttpMethod.OPTIONS)
+                .build();
     }
 
     //Metoda DELETE do usuwania filmu
