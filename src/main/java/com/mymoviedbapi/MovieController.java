@@ -64,7 +64,7 @@ public class MovieController {
     public ResponseEntity options(){
         return ResponseEntity
                 .ok()
-                .allow(HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PUT)
+                .allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PUT)
                 .build();
     }
 
