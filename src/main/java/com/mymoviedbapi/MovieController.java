@@ -1,14 +1,12 @@
 package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +52,7 @@ public class MovieController {
         movie.setMovieDirector(movieDetails.getMovieDirector());
         movie.setMovieGenre(movieDetails.getMovieGenre());
         movie.setMovieImage(movieDetails.getMovieImage());
-        movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate().toString());
+        movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate());
         movie.setMovieDescription(movieDetails.getMovieDescription());
 
         final Movie updatedMovie = movieRepository.save(movie);

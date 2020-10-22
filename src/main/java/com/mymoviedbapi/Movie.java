@@ -77,7 +77,10 @@ public class Movie {
         this.movieDirector = movieDirector;
     }
 
-    public void setMovieReleaseDate(String releaseYear) { this.movieReleaseDate = java.sql.Timestamp.valueOf(releaseYear); }
+    public void setMovieReleaseDate(String releaseYear) throws ParseException {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        this.movieReleaseDate = formater.parse(releaseYear);
+    }
 
     public void setMovieDescription(String movieDescription) { this.movieDescription = movieDescription; }
 
