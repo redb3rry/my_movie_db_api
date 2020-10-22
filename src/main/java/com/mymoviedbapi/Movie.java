@@ -4,7 +4,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "movies")
@@ -24,7 +26,7 @@ public class Movie {
     private String movieGenre;
 
     @Column(name = "movie_release", nullable = false)
-    private Timestamp movieReleaseDate;
+    private Date movieReleaseDate;
 
     @Lob
     @Column(name ="movie_image", nullable = true)
@@ -33,6 +35,8 @@ public class Movie {
     @Lob
     @Column(name = "movie_description", nullable = true)
     private String movieDescription;
+
+    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
 
     public void setMovieGenre(String movieGenre) {
         this.movieGenre = movieGenre;
@@ -50,11 +54,11 @@ public class Movie {
         return movieImage;
     }
 
-    public Movie(String movieName, String movieDirector, String movieGenre, String movieReleaseDate, String movieImage, String movieDescription) {
+    public Movie(String movieName, String movieDirector, String movieGenre, String movieReleaseDate, String movieImage, String movieDescription) throws ParseException {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
-        this.movieReleaseDate = java.sql.Timestamp.valueOf(movieReleaseDate);
+        this.movieReleaseDate = formater.parse(movieReleaseDate);
         this.movieImage = movieImage;
         this.movieDescription = movieDescription;
     }
@@ -64,13 +68,6 @@ public class Movie {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    public Movie(String movieName, String movieDirector, String movieGenre, String movieReleaseDate) {
-        this.movieName = movieName;
-        this.movieDirector = movieDirector;
-        this.movieGenre = movieGenre;
-        this.movieReleaseDate = java.sql.Timestamp.valueOf(movieReleaseDate);
     }
 
     public void setMovieName(String movieName) {
@@ -97,7 +94,9 @@ public class Movie {
         return movieDirector;
     }
 
-    public String getMovieReleaseDate() { return movieReleaseDate.toString(); }
+    public String getMovieReleaseDate() {
+        return formater.format(movieReleaseDate);
+    }
 
     public String getMovieDescription() { return movieDescription; }
 }
