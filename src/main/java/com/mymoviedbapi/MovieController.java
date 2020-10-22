@@ -61,13 +61,13 @@ public class MovieController {
         return ResponseEntity.ok(updatedMovie);
     }
 
-    @RequestMapping(value = "/movies/{id}/", method = RequestMethod.OPTIONS)
-    public ResponseEntity options(){
-        return ResponseEntity
-                .ok()
-                .allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PUT)
-                .build();
-    }
+//    @RequestMapping(value = "/movies/{id}/", method = RequestMethod.OPTIONS)
+//    public ResponseEntity options(){
+//        return ResponseEntity
+//                .ok()
+//                .allow(HttpMethod.OPTIONS, HttpMethod.POST, HttpMethod.DELETE, HttpMethod.PUT)
+//                .build();
+//    }
 
     //Metoda DELETE do usuwania filmu
     @DeleteMapping("/movies/{id}/")
