@@ -74,10 +74,4 @@ class HelloController {
     String hello() {
         return "Welcome to the MyMovieDB API";
     }
-
-    @GetMapping("/filmy")
-    String filmy(){
-        return movieRepository.findAll().toString();
-    }
-
 }
