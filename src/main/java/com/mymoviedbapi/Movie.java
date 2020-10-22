@@ -4,7 +4,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 @Entity
 @Table(name = "movies")
@@ -24,7 +24,7 @@ public class Movie {
     private String movieGenre;
 
     @Column(name = "movie_release", nullable = false)
-    private Date movieReleaseDate;
+    private Timestamp movieReleaseDate;
 
     @Lob
     @Column(name ="movie_image", nullable = true)
@@ -54,7 +54,7 @@ public class Movie {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
-        this.movieReleaseDate = java.sql.Date.valueOf(movieReleaseDate);
+        this.movieReleaseDate = java.sql.Timestamp.valueOf(movieReleaseDate);
         this.movieImage = movieImage;
         this.movieDescription = movieDescription;
     }
@@ -70,7 +70,7 @@ public class Movie {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
-        this.movieReleaseDate = java.sql.Date.valueOf(movieReleaseDate);
+        this.movieReleaseDate = java.sql.Timestamp.valueOf(movieReleaseDate);
     }
 
     public void setMovieName(String movieName) {
@@ -81,7 +81,7 @@ public class Movie {
         this.movieDirector = movieDirector;
     }
 
-    public void setMovieReleaseDate(String releaseYear) { this.movieReleaseDate = java.sql.Date.valueOf(releaseYear); }
+    public void setMovieReleaseDate(String releaseYear) { this.movieReleaseDate = java.sql.Timestamp.valueOf(releaseYear); }
 
     public void setMovieDescription(String movieDescription) { this.movieDescription = movieDescription; }
 
@@ -97,7 +97,7 @@ public class Movie {
         return movieDirector;
     }
 
-    public Date getMovieReleaseDate() { return movieReleaseDate; }
+    public Timestamp getMovieReleaseDate() { return movieReleaseDate; }
 
     public String getMovieDescription() { return movieDescription; }
 }
