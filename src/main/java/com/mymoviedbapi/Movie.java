@@ -36,8 +36,6 @@ public class Movie {
     @Column(name = "movie_description", nullable = true)
     private String movieDescription;
 
-    private SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
     public void setMovieGenre(String movieGenre) {
         this.movieGenre = movieGenre;
     }
@@ -58,6 +56,7 @@ public class Movie {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         this.movieReleaseDate = formater.parse(movieReleaseDate);
         this.movieImage = movieImage;
         this.movieDescription = movieDescription;
@@ -95,6 +94,7 @@ public class Movie {
     }
 
     public String getMovieReleaseDate() {
+        SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return formater.format(movieReleaseDate);
     }
 
