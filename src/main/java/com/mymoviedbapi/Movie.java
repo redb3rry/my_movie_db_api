@@ -97,7 +97,7 @@ public class Movie {
         return movieDirector;
     }
 
-    public Timestamp getMovieReleaseDate() { return movieReleaseDate; }
+    public String getMovieReleaseDate() { return movieReleaseDate.toString(); }
 
     public String getMovieDescription() { return movieDescription; }
 }
