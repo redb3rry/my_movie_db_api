@@ -4,8 +4,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
+import java.sql.Date;
 
 @Entity
 @Table(name = "movies")
@@ -24,9 +23,8 @@ public class Movie {
     @Column(name = "movie_genre", nullable = false)
     private String movieGenre;
 
-    @Min(value = 1888, message = "Movie release year must be greater than 1888.")
-    @Column(name = "movie_release_year", nullable = false)
-    private int movieReleaseYear;
+    @Column(name = "movie_release", nullable = false)
+    private Date movieReleaseDate;
 
     @Lob
     @Column(name ="movie_image", nullable = true)
@@ -52,11 +50,11 @@ public class Movie {
         return movieImage;
     }
 
-    public Movie(String movieName, String movieDirector, String movieGenre, int movieReleaseYear, String movieImage, String movieDescription) {
+    public Movie(String movieName, String movieDirector, String movieGenre, String movieReleaseDate, String movieImage, String movieDescription) {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
-        this.movieReleaseYear = movieReleaseYear;
+        this.movieReleaseDate = java.sql.Date.valueOf(movieReleaseDate);
         this.movieImage = movieImage;
         this.movieDescription = movieDescription;
     }
@@ -68,11 +66,11 @@ public class Movie {
         this.id = id;
     }
 
-    public Movie(String movieName, String movieDirector, String movieGenre, int movieReleaseYear) {
+    public Movie(String movieName, String movieDirector, String movieGenre, String movieReleaseDate) {
         this.movieName = movieName;
         this.movieDirector = movieDirector;
         this.movieGenre = movieGenre;
-        this.movieReleaseYear = movieReleaseYear;
+        this.movieReleaseDate = java.sql.Date.valueOf(movieReleaseDate);
     }
 
     public void setMovieName(String movieName) {
@@ -83,7 +81,7 @@ public class Movie {
         this.movieDirector = movieDirector;
     }
 
-    public void setMovieReleaseYear(int releaseYear) { this.movieReleaseYear = releaseYear; }
+    public void setMovieReleaseDate(String releaseYear) { this.movieReleaseDate = java.sql.Date.valueOf(releaseYear); }
 
     public void setMovieDescription(String movieDescription) { this.movieDescription = movieDescription; }
 
@@ -99,7 +97,7 @@ public class Movie {
         return movieDirector;
     }
 
-    public int getMovieReleaseYear() { return movieReleaseYear; }
+    public Date getMovieReleaseDate() { return movieReleaseDate; }
 
     public String getMovieDescription() { return movieDescription; }
 }

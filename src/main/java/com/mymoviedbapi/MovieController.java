@@ -51,7 +51,7 @@ public class MovieController {
         movie.setMovieDirector(movieDetails.getMovieDirector());
         movie.setMovieGenre(movieDetails.getMovieGenre());
         movie.setMovieImage(movieDetails.getMovieImage());
-        movie.setMovieReleaseYear(movieDetails.getMovieReleaseYear());
+        movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate().toString());
         movie.setMovieDescription(movieDetails.getMovieDescription());
 
         final Movie updatedMovie = movieRepository.save(movie);
