@@ -60,7 +60,7 @@ public class MovieController {
         return ResponseEntity.ok(updatedMovie);
     }
 
-    @RequestMapping(value = "/options/", method = RequestMethod.OPTIONS)
+    @RequestMapping(value = "/movies/{id}", method = RequestMethod.OPTIONS)
     public ResponseEntity options(){
         return ResponseEntity
                 .ok()
