@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import java.util.Map;
 @RestController
 @RequestMapping
 @CrossOrigin
-
+@Validated
 public class MovieController {
     @Autowired
     private MovieRepository movieRepository;
@@ -38,7 +39,8 @@ public class MovieController {
 
     //Metoda POST do tworzenia filmu
     @PostMapping("/movies/")
-    public Movie createMovie(@Valid @RequestBody Movie movie) {
+    @ResponseStatus(HttpStatus.CREATED)
+    public Movie createMovie(@Valid @RequestParam() @RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
