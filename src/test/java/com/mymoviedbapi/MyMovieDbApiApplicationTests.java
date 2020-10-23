@@ -78,7 +78,7 @@ class MyMovieDbApiApplicationTests {
 		String message = object.getString("message");
 
 		Assertions.assertNotNull(response.getBody());
-		Assertions.assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+		Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 		Assertions.assertEquals(expectedMessage, message);
 	}
 }
