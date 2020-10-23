@@ -1,5 +1,6 @@
 package com.mymoviedbapi;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,6 +42,12 @@ public class MovieController {
     @PostMapping("/movies/")
     @ResponseStatus(HttpStatus.CREATED)
     public Movie createMovie(@Valid @RequestBody Movie movie) {
+        try{
+            Movie movie1 = movieRepository.save(movie);
+        }catch (ConstraintViolationException e){
+            onWrongParametersExeption(e);
+            return null;
+        }
         return movieRepository.save(movie);
     }
 
@@ -86,6 +93,13 @@ public class MovieController {
             error += fieldError.getField() + ": " + fieldError.getDefaultMessage() + "\n";
         }
         return error;
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    String onWrongParametersExeption(ConstraintViolationException e){
+        return "Wrong parameters";
     }
 
     @ExceptionHandler(IdNotFoundException.class)
