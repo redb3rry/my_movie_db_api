@@ -43,7 +43,7 @@ class MyMovieDbApiApplicationTests {
 	@Test
 	public void testGetAllMovies() {
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 		ResponseEntity<String> response = restTemplate.exchange(getUrl()+"movies/",
 				HttpMethod.GET, entity, String.class);
 		Assertions.assertNotNull(response.getBody());
@@ -53,7 +53,7 @@ class MyMovieDbApiApplicationTests {
 	@Test
 	public void testGetMovieById() throws JSONException {
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 		ResponseEntity<String> response = restTemplate.exchange(getUrl() + "movies/1/",
 				HttpMethod.GET, entity, String.class);
 		String jsonString = response.getBody();
@@ -70,7 +70,7 @@ class MyMovieDbApiApplicationTests {
 		int id = 150;
 		String expectedMessage = "Movie with ID " + id + " not found";
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 		ResponseEntity<String> response = restTemplate.exchange(getUrl() + "movies/" + id + "/",
 				HttpMethod.GET, entity, String.class);
 		String jsonString = response.getBody();
@@ -87,7 +87,7 @@ class MyMovieDbApiApplicationTests {
 		int id = 150;
 		String expectedMessage = "Movie with ID " + id + " not found";
 		HttpHeaders headers = new HttpHeaders();
-		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		HttpEntity<String> entity = new HttpEntity<>(null, headers);
 		ResponseEntity<String> response = restTemplate.exchange(getUrl() + "movies/" + id + "/",
 				HttpMethod.DELETE, entity, String.class);
 		String jsonString = response.getBody();
