@@ -81,4 +81,21 @@ class MyMovieDbApiApplicationTests {
 		Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
 		Assertions.assertEquals(expectedMessage, message);
 	}
+
+	@Test
+	public void testDeleteMovieByWrongId() throws JSONException {
+		int id = 150;
+		String expectedMessage = "Movie with ID " + id + " not found";
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<String> response = restTemplate.exchange(getUrl() + "movies/" + id + "/",
+				HttpMethod.DELETE, entity, String.class);
+		String jsonString = response.getBody();
+		JSONObject object = new JSONObject(jsonString);
+		String message = object.getString("message");
+
+		Assertions.assertNotNull(response.getBody());
+		Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+		Assertions.assertEquals(expectedMessage, message);
+	}
 }
