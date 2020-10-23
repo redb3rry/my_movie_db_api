@@ -77,7 +77,7 @@ public class MovieController {
     @DeleteMapping("/movies/{id}/")
     public Map<String, Boolean> deleteMovie(@PathVariable(value = "id") Long movieId) throws Exception {
         Movie movie = movieRepository.findById(movieId)
-                .orElseThrow(() -> new Exception("Movie with ID " + movieId + " not found"));
+                .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
         movieRepository.delete(movie);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", true);
