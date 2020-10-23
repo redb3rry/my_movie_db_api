@@ -98,15 +98,19 @@ public class MovieController {
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    String onWrongParametersExeption(ConstraintViolationException e){
-        return "Wrong parameters";
+    Map<String,String> onWrongParametersExeption(ConstraintViolationException e){
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Wrong parameter");
+        return response;
     }
 
     @ExceptionHandler(IdNotFoundException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    String onIdNotFoundException(IdNotFoundException e) {
-        return e.getMessage();
+    Map<String,String> onIdNotFoundException(IdNotFoundException e) {
+        Map<String, String> response = new HashMap<>();
+        response.put("message", e.getMessage());
+        return response;
     }
 
     public class IdNotFoundException extends Exception {
