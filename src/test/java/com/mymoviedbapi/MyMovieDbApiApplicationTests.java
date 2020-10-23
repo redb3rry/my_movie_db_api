@@ -23,6 +23,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import com.mymoviedbapi.Movie;
 
 import java.text.ParseException;
+import org.json.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = MyMovieDbApiApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -47,6 +48,21 @@ class MyMovieDbApiApplicationTests {
 				HttpMethod.GET, entity, String.class);
 		Assertions.assertNotNull(response.getBody());
 		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+	}
+
+	@Test
+	public void testGetMovieById() throws JSONException {
+		HttpHeaders headers = new HttpHeaders();
+		HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+		ResponseEntity<String> response = restTemplate.exchange(getUrl() + "movies/1/",
+				HttpMethod.GET, entity, String.class);
+		String jsonString = response.getBody();
+		JSONObject object = new JSONObject(jsonString);
+		String movieId = object.getString("id");
+
+		Assertions.assertNotNull(response.getBody());
+		Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+		Assertions.assertEquals("1", movieId);
 	}
 
 }
