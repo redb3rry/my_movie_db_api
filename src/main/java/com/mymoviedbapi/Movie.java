@@ -4,7 +4,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,28 +17,23 @@ public class Movie {
     private long id;
 
     @Column(name = "movie_name", nullable = false)
-    @NotEmpty(message = "Please provide a name")
     private String movieName;
 
     @Column(name = "movie_director", nullable = false)
-    @NotEmpty(message = "Please provide a director name")
     private String movieDirector;
 
     @Column(name = "movie_genre", nullable = false)
-    @NotEmpty(message = "Please provide a genre")
     private String movieGenre;
 
     @Column(name = "movie_release", nullable = false)
-    @NotEmpty(message = "Please provide a date ISO format")
     private Date movieReleaseDate;
 
     @Lob
-    @Column(name ="movie_image", nullable = true)
+    @Column(name = "movie_image", nullable = true)
     private String movieImage;
 
     @Lob
     @Column(name = "movie_description", nullable = true)
-    @NotEmpty(message = "Please provide a description")
     private String movieDescription;
 
     public void setMovieGenre(String movieGenre) {
@@ -88,7 +82,9 @@ public class Movie {
         this.movieReleaseDate = formater.parse(releaseYear);
     }
 
-    public void setMovieDescription(String movieDescription) { this.movieDescription = movieDescription; }
+    public void setMovieDescription(String movieDescription) {
+        this.movieDescription = movieDescription;
+    }
 
     public long getId() {
         return id;
@@ -107,7 +103,9 @@ public class Movie {
         return formater.format(movieReleaseDate);
     }
 
-    public String getMovieDescription() { return movieDescription; }
+    public String getMovieDescription() {
+        return movieDescription;
+    }
 }
 
 interface MovieRepository extends CrudRepository<Movie, Long> {
