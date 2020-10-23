@@ -8,6 +8,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,12 +49,16 @@ public class MovieController {
     ) throws Exception {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
-        movie.setMovieName(movieDetails.getMovieName());
-        movie.setMovieDirector(movieDetails.getMovieDirector());
-        movie.setMovieGenre(movieDetails.getMovieGenre());
-        movie.setMovieImage(movieDetails.getMovieImage());
-        movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate());
-        movie.setMovieDescription(movieDetails.getMovieDescription());
+        try {
+            movie.setMovieName(movieDetails.getMovieName());
+            movie.setMovieDirector(movieDetails.getMovieDirector());
+            movie.setMovieGenre(movieDetails.getMovieGenre());
+            movie.setMovieImage(movieDetails.getMovieImage());
+            movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate());
+            movie.setMovieDescription(movieDetails.getMovieDescription());
+        } catch (ParseException e){
+            return ResponseEntity.badRequest().build();
+        }
 
         final Movie updatedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(updatedMovie);
