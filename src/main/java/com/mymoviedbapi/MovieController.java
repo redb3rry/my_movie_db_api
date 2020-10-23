@@ -105,7 +105,7 @@ public class MovieController {
     }
 
     @ExceptionHandler(IdNotFoundException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     Map<String,String> onIdNotFoundException(IdNotFoundException e) {
         Map<String, String> response = new HashMap<>();
