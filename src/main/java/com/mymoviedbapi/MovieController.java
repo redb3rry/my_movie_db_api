@@ -40,7 +40,7 @@ public class MovieController {
     //Metoda POST do tworzenia filmu
     @PostMapping("/movies/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Movie createMovie(@Valid @RequestParam() @RequestBody Movie movie) {
+    public Movie createMovie(@Valid @RequestBody Movie movie) {
         return movieRepository.save(movie);
     }
 
