@@ -89,6 +89,7 @@ public class CrudMockTest {
         this.mockMvc.perform(put("/movies/100/").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"movieName\": \"testPost\", \"movieDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
                 .andDo(print()).andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.message").value("Movie with ID 100 not found"))
                 .andReturn();
     }
 
