@@ -82,4 +82,12 @@ public class CrudMockTest {
     public void testDeleteMovieNotFound() throws Exception {
         this.mockMvc.perform(delete("/movies/111/")).andDo(print()).andExpect(status().isNotFound()).andExpect(jsonPath("$.message").value("Movie with ID 111 not found"));
     }
+
+    @Test
+    @Transactional
+    public void testPutMovieIncorrect() throws Exception {
+        this.mockMvc.perform(put("/movies/100/").contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"moviName\": \"testPost\", \"moviDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
+                .andDo(print()).andExpect(status().isNotFound());
+    }
 }
