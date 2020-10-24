@@ -1,5 +1,7 @@
 package com.mymoviedbapi;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
@@ -41,19 +44,22 @@ public class MovieController {
     //Metoda POST do tworzenia filmu
     @PostMapping("/movies/")
     @ResponseStatus(HttpStatus.CREATED)
-    public Movie createMovie(@Valid @RequestBody Movie movie) {
+    public ResponseEntity createMovie(@Valid @RequestBody Movie movie) throws JsonProcessingException {
         try{
+            movie.checkIfNull();
             Movie movie1 = movieRepository.save(movie);
         }catch (ConstraintViolationException e){
-            onWrongParametersExeption(e);
-            return null;
+            Map<String, String> response = onWrongParametersExeption();
+            ObjectMapper mapperObj = new ObjectMapper();
+            return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
         }
-        return movieRepository.save(movie);
+        final Movie movie1 = movieRepository.save(movie);
+        return ResponseEntity.created(URI.create("location")).body(movie1);
     }
 
     //Metoda PUT do edycji filmu
     @PutMapping("/movies/{id}/")
-    public ResponseEntity<Movie> updateMovie(
+    public ResponseEntity updateMovie(
             @PathVariable(value = "id") Long movieId, @Valid @RequestBody Movie movieDetails
     ) throws Exception {
         Movie movie = movieRepository.findById(movieId)
@@ -66,7 +72,9 @@ public class MovieController {
             movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate());
             movie.setMovieDescription(movieDetails.getMovieDescription());
         } catch (ParseException e){
-            return ResponseEntity.badRequest().build();
+            Map<String, String> response = onWrongParametersExeption();
+            ObjectMapper mapperObj = new ObjectMapper();
+            return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
         }
 
         final Movie updatedMovie = movieRepository.save(movie);
@@ -95,10 +103,10 @@ public class MovieController {
         return error;
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler(BadParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String,String> onWrongParametersExeption(ConstraintViolationException e){
+    Map<String,String> onWrongParametersExeption(){
         Map<String, String> response = new HashMap<>();
         response.put("message", "Wrong parameter");
         return response;
@@ -115,6 +123,11 @@ public class MovieController {
 
     public class IdNotFoundException extends Exception {
         public IdNotFoundException(String errorMessage) {
+            super(errorMessage);
+        }
+    }
+    public class BadParameterException extends Exception {
+        public BadParameterException(String errorMessage) {
             super(errorMessage);
         }
     }

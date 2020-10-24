@@ -1,9 +1,11 @@
 package com.mymoviedbapi;
 
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.data.repository.CrudRepository;
 
 import javax.persistence.*;
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -118,6 +120,17 @@ public class Movie {
 
     public String getMovieDescription() {
         return movieDescription;
+    }
+
+    public void checkIfNull(){
+        if (this.movieName == null
+                || this.movieDirector == null
+                || this.movieGenre == null
+                || this.movieReleaseDate == null
+                || this.movieImage == null
+                || this.movieDescription == null){
+            throw new ConstraintViolationException("Some attributes are null", new SQLException("reason"),"constraintName");
+        }
     }
 }
 
