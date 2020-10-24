@@ -87,7 +87,18 @@ public class CrudMockTest {
     @Transactional
     public void testPutMovieIncorrect() throws Exception {
         this.mockMvc.perform(put("/movies/100/").contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"moviName\": \"testPost\", \"moviDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
-                .andDo(print()).andExpect(status().isNotFound());
+                .content("{ \"movieName\": \"testPost\", \"movieDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
+                .andDo(print()).andExpect(status().isNotFound())
+                .andReturn();
+    }
+
+    @Test
+    @Transactional
+    public void testPutMovieCorrect() throws Exception {
+        this.mockMvc.perform(put("/movies/1/").contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"movieName\": \"testPost\", \"movieDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.movieName").value("testPost"))
+                .andReturn();
     }
 }
