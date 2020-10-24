@@ -65,6 +65,7 @@ public class MovieController {
         Movie movie = movieRepository.findById(movieId)
                 .orElseThrow(() -> new IdNotFoundException("Movie with ID " + movieId + " not found"));
         try {
+            movieDetails.checkIfNull();
             movie.setMovieName(movieDetails.getMovieName());
             movie.setMovieDirector(movieDetails.getMovieDirector());
             movie.setMovieGenre(movieDetails.getMovieGenre());
@@ -75,7 +76,11 @@ public class MovieController {
             Map<String, String> response = onWrongParametersExeption();
             ObjectMapper mapperObj = new ObjectMapper();
             return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
-        }
+        } catch (ConstraintViolationException e){
+        Map<String, String> response = onWrongParametersExeption();
+        ObjectMapper mapperObj = new ObjectMapper();
+        return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
+    }
 
         final Movie updatedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(updatedMovie);
