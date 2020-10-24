@@ -19,6 +19,19 @@ public class Movie {
     @Column(name = "movie_name", nullable = false)
     private String movieName;
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", movieName='" + movieName + '\'' +
+                ", movieDirector='" + movieDirector + '\'' +
+                ", movieGenre='" + movieGenre + '\'' +
+                ", movieReleaseDate=" + movieReleaseDate +
+                ", movieImage='" + movieImage + '\'' +
+                ", movieDescription='" + movieDescription + '\'' +
+                '}';
+    }
+
     @Column(name = "movie_director", nullable = false)
     private String movieDirector;
 
