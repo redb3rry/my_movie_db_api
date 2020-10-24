@@ -85,7 +85,7 @@ public class CrudMockTest {
 
     @Test
     @Transactional
-    public void testPutMovieIncorrect() throws Exception {
+    public void testPutMovieNotFound() throws Exception {
         this.mockMvc.perform(put("/movies/100/").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"movieName\": \"testPost\", \"movieDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
                 .andDo(print()).andExpect(status().isNotFound())
