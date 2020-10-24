@@ -102,4 +102,13 @@ public class CrudMockTest {
                 .andExpect(jsonPath("$.movieName").value("testPost"))
                 .andReturn();
     }
+
+    @Test
+    @Transactional
+    public void testPutMovieIncorrect() throws Exception{
+        this.mockMvc.perform(put("/movies/1/").contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"mName\": \"testPost\", \"movieDirector\": \"testDirector\", \"movieGenre\": \"testGenre\", \"movieReleaseDate\": \"1999-05-16T00:00:00.605Z\", \"movieImage\": \"\", \"movieDescription\": \"\"} "))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andReturn();
+    }
 }
