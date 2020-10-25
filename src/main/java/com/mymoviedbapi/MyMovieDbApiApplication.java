@@ -7,14 +7,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 @SpringBootApplication
 public class MyMovieDbApiApplication {
 
-    public static void main(String[] args) throws ParseException {
+    public static void main(String[] args) {
         SpringApplication.run(MyMovieDbApiApplication.class, args);
     }
 
@@ -32,7 +28,7 @@ public class MyMovieDbApiApplication {
                     ));
             movieRepository.save(
                     new Movie(
-                    "Mroczny Rycerz Powstaje",
+                            "Mroczny Rycerz",
                             "Christopher Nolan",
                             "Akcja / Sci-Fi",
                             "2012-07-16T00:00:00.605Z",

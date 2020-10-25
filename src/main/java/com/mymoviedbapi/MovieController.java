@@ -45,10 +45,10 @@ public class MovieController {
     @PostMapping("/movies/")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity createMovie(@Valid @RequestBody Movie movie) throws JsonProcessingException {
-        try{
+        try {
             movie.checkIfNull();
             Movie movie1 = movieRepository.save(movie);
-        }catch (ConstraintViolationException e){
+        } catch (ConstraintViolationException e) {
             Map<String, String> response = onWrongParametersExeption();
             ObjectMapper mapperObj = new ObjectMapper();
             return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
@@ -72,15 +72,15 @@ public class MovieController {
             movie.setMovieImage(movieDetails.getMovieImage());
             movie.setMovieReleaseDate(movieDetails.getMovieReleaseDate());
             movie.setMovieDescription(movieDetails.getMovieDescription());
-        } catch (ParseException e){
+        } catch (ParseException e) {
             Map<String, String> response = onWrongParametersExeption();
             ObjectMapper mapperObj = new ObjectMapper();
             return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
-        } catch (ConstraintViolationException e){
-        Map<String, String> response = onWrongParametersExeption();
-        ObjectMapper mapperObj = new ObjectMapper();
-        return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
-    }
+        } catch (ConstraintViolationException e) {
+            Map<String, String> response = onWrongParametersExeption();
+            ObjectMapper mapperObj = new ObjectMapper();
+            return ResponseEntity.badRequest().body(mapperObj.writeValueAsString(response));
+        }
 
         final Movie updatedMovie = movieRepository.save(movie);
         return ResponseEntity.ok(updatedMovie);
@@ -111,7 +111,7 @@ public class MovieController {
     @ExceptionHandler(BadParameterException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    Map<String,String> onWrongParametersExeption(){
+    Map<String, String> onWrongParametersExeption() {
         Map<String, String> response = new HashMap<>();
         response.put("message", "Wrong parameter");
         return response;
@@ -120,7 +120,7 @@ public class MovieController {
     @ExceptionHandler(IdNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
-    Map<String,String> onIdNotFoundException(IdNotFoundException e) {
+    Map<String, String> onIdNotFoundException(IdNotFoundException e) {
         Map<String, String> response = new HashMap<>();
         response.put("message", e.getMessage());
         return response;
@@ -131,6 +131,7 @@ public class MovieController {
             super(errorMessage);
         }
     }
+
     public class BadParameterException extends Exception {
         public BadParameterException(String errorMessage) {
             super(errorMessage);

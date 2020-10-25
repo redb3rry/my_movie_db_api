@@ -122,14 +122,14 @@ public class Movie {
         return movieDescription;
     }
 
-    public void checkIfNull(){
+    public void checkIfNull() {
         if (this.movieName == null
                 || this.movieDirector == null
                 || this.movieGenre == null
                 || this.movieReleaseDate == null
                 || this.movieImage == null
-                || this.movieDescription == null){
-            throw new ConstraintViolationException("Some attributes are null", new SQLException("reason"),"constraintName");
+                || this.movieDescription == null) {
+            throw new ConstraintViolationException("Some attributes are null", new SQLException("reason"), "constraintName");
         }
     }
 }
