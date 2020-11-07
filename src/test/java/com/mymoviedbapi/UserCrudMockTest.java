@@ -56,4 +56,25 @@ public class UserCrudMockTest {
                 .content("{ \"userName\": \"bad#!@#Name\", \"userSurname\": \"bad()*{Surname\", \"userEmail\": \"gibberish\", \"userPassword\": \"aaa\" }"))
                 .andDo(print()).andExpect(status().isBadRequest());
     }
+
+    //Wywołanie POST na login - poprawne
+    @Test
+    @Transactional
+    public void testLogin() throws Exception{
+
+    }
+
+    //Wywołanie POST na login - niepoprawne dane
+    @Test
+    @Transactional
+    public void testLoginIncorrect() throws Exception{
+
+    }
+
+    //Wywołanie DELETE na login
+    @Test
+    @Transactional
+    public void testLogout() throws Exception{
+
+    }
 }
