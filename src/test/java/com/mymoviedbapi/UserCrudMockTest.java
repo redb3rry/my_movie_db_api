@@ -12,8 +12,7 @@ import javax.transaction.Transactional;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -45,7 +44,8 @@ public class UserCrudMockTest {
     public void testRegister() throws Exception{
         this.mockMvc.perform(post("/register/").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"userName\": \"testName\", \"userSurname\": \"testSurname\", \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"))
-                .andDo(print()).andExpect(status().isCreated());
+                .andDo(print()).andExpect(status().isCreated())
+                .andExpect(content().json("{ \"userName\": \"testName\", \"userSurname\": \"testSurname\", \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"));
     }
 
     //Wywołanie POST na register - niepoprawne
