@@ -72,7 +72,7 @@ public class UserCrudMockTest {
         this.mockMvc.perform(post("/login/").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"invalid\" }"))
                 .andDo(print()).andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message").value("User with ID 100 not found"));
+                .andExpect(jsonPath("$.message").value("Login failed."));
     }
 
     //Wywołanie DELETE na login - DO POPRAWY TOKEN
