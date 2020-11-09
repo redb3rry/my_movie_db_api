@@ -25,11 +25,23 @@ public class User {
     @Column(name = "user_password", nullable = false)
     private String userPassword;
 
-    public User(String userName, String userSurname, String userEmail, String userPassword) {
+    @Column(name = "user_token")
+    private String userToken;
+
+    public String getUserToken() {
+        return userToken;
+    }
+
+    public void setUserToken(String userToken) {
+        this.userToken = userToken;
+    }
+
+    public User(String userName, String userSurname, String userEmail, String userPassword, String userToken) {
         this.userName = userName;
         this.userSurname = userSurname;
         this.userEmail = userEmail;
         this.userPassword = userPassword;
+        this.userToken = userToken;
     }
 
     public long getId() {
