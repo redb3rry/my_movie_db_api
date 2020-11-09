@@ -23,8 +23,8 @@ public class UserCrudMockTest {
     @Test
     @Transactional
     public void testGetUserData() throws Exception{
-        this.mockMvc.perform(get("/users/data/1/")).andDo(print()).andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
+        this.mockMvc.perform(get("/users/data/1839a268-ce27-402e-bd14-3d8a3c76ab9e/")).andDo(print()).andExpect(status().isOk())
+                .andExpect(jsonPath("$.userName").value("Imie")).andExpect(jsonPath("$.userSurname").value("Nazwisko"))
                 .andReturn();
     }
 
@@ -32,8 +32,8 @@ public class UserCrudMockTest {
     @Test
     @Transactional
     public void testGetUserDataIncorrect() throws Exception {
-        this.mockMvc.perform(get("/users/data/100/")).andDo(print()).andExpect(status().isNotFound())
-                .andExpect(jsonPath("$.message").value("User with ID 100 not found"))
+        this.mockMvc.perform(get("/users/data/1839a268-ce27-402e-bd14-3d8a3c76ab921/")).andDo(print()).andExpect(status().isNotFound())
+                .andExpect(status().isNotFound())
                 .andReturn();
     }
 
@@ -44,7 +44,7 @@ public class UserCrudMockTest {
         this.mockMvc.perform(post("/register/").contentType(MediaType.APPLICATION_JSON)
                 .content("{ \"userName\": \"testName\", \"userSurname\": \"testSurname\", \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"))
                 .andDo(print()).andExpect(status().isCreated())
-                .andExpect(content().json("{ \"userName\": \"testName\", \"userSurname\": \"testSurname\", \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"));
+                .andExpect(content().json("{ \"userName\": \"testName\", \"userSurname\": \"testSurname\", \"userEmail\": \"testmail@gmail.com\"}"));
     }
 
     //Wywołanie POST na register - niepoprawne
