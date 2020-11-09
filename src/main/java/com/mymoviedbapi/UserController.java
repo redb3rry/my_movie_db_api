@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +17,6 @@ import java.util.UUID;
 @CrossOrigin
 @Validated
 public class UserController {
-
     @Autowired
     private UserRepository userRepository;
 
@@ -46,7 +46,16 @@ public class UserController {
     // Metoda POST do rejestracji użytkownika
     @PostMapping("/register/")
     public ResponseEntity registerUser(@Valid @RequestBody User user) {
-        if (user.getUserName().isEmpty() || user.getUserSurname().isEmpty() || user.getUserEmail().isEmpty() || user.getUserPassword().isEmpty()) {
+        if (user == null ||
+                user.getUserName() == null ||
+                user.getUserName().isEmpty() ||
+                user.getUserSurname() == null ||
+                user.getUserSurname().isEmpty() ||
+                user.getUserEmail() == null ||
+                user.getUserEmail().isEmpty() ||
+                user.getUserPassword() == null ||
+                user.getUserPassword().isEmpty()
+        ) {
             Map<String, String> response = new HashMap<>();
             response.put("error", "400");
             response.put("message", "Not all fields was given");
@@ -74,7 +83,7 @@ public class UserController {
             response.put("userName", user.getUserName());
             response.put("userSurname", user.getUserSurname());
             response.put("userEmail", user.getUserEmail());
-            return ResponseEntity.ok().header("Token", user.getUserToken()).body(response);
+            return ResponseEntity.created(URI.create("location")).header("Token", user.getUserToken()).body(response);
         }
     }
 
