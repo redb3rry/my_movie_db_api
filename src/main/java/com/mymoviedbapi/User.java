@@ -32,6 +32,9 @@ public class User {
         return userToken;
     }
 
+    public User() {
+    }
+
     public void setUserToken(String userToken) {
         this.userToken = userToken;
     }

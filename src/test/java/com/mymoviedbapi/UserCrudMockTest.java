@@ -23,7 +23,7 @@ public class UserCrudMockTest {
     @Test
     @Transactional
     public void testGetUserData() throws Exception{
-        this.mockMvc.perform(get("/user/data/1/")).andDo(print()).andExpect(status().isOk())
+        this.mockMvc.perform(get("/users/data/1/")).andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value("1"))
                 .andReturn();
     }
@@ -32,7 +32,7 @@ public class UserCrudMockTest {
     @Test
     @Transactional
     public void testGetUserDataIncorrect() throws Exception {
-        this.mockMvc.perform(get("/user/data/100/")).andDo(print()).andExpect(status().isNotFound())
+        this.mockMvc.perform(get("/users/data/100/")).andDo(print()).andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.message").value("User with ID 100 not found"))
                 .andReturn();
     }

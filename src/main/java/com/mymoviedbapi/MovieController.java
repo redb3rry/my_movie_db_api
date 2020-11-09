@@ -126,13 +126,13 @@ public class MovieController {
         return response;
     }
 
-    public class IdNotFoundException extends Exception {
+    public static class IdNotFoundException extends Exception {
         public IdNotFoundException(String errorMessage) {
             super(errorMessage);
         }
     }
 
-    public class BadParameterException extends Exception {
+    public static class BadParameterException extends Exception {
         public BadParameterException(String errorMessage) {
             super(errorMessage);
         }
