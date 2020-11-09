@@ -9,8 +9,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import javax.transaction.Transactional;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -61,20 +60,34 @@ public class UserCrudMockTest {
     @Test
     @Transactional
     public void testLogin() throws Exception{
-
+        this.mockMvc.perform(post("/login/").contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"))
+                .andDo(print()).andExpect(status().isOk());
     }
 
     //Wywołanie POST na login - niepoprawne dane
     @Test
     @Transactional
     public void testLoginIncorrect() throws Exception{
-
+        this.mockMvc.perform(post("/login/").contentType(MediaType.APPLICATION_JSON)
+                .content("{ \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"invalid\" }"))
+                .andDo(print()).andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.message").value("User with ID 100 not found"));
     }
 
-    //Wywołanie DELETE na login
+    //Wywołanie DELETE na login - DO POPRAWY TOKEN
     @Test
     @Transactional
     public void testLogout() throws Exception{
+        this.mockMvc.perform(delete("/login/").header("Content-Type","application-json")
+                .header("Token", "testToken")).andDo(print()).andExpect(status().isOk());
+    }
 
+    //Wywołanie DELETE na login niepoprawne - DO POPRAWY TOKEN
+    @Test
+    @Transactional
+    public void testLogoutIncorrect() throws Exception{
+        this.mockMvc.perform(delete("/login/").header("Content-Type","application-json")
+                .header("Token", "invalidToken")).andDo(print()).andExpect(status().isBadRequest());
     }
 }
