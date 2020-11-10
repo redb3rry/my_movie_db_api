@@ -80,11 +80,48 @@ public class UserController {
             user.setUserToken(UUID.randomUUID().toString());
             userRepository.save(user);
             Map<String, String> response = new HashMap<>();
+            response.put("userToken", user.getUserToken());
             response.put("userName", user.getUserName());
             response.put("userSurname", user.getUserSurname());
             response.put("userEmail", user.getUserEmail());
-            return ResponseEntity.created(URI.create("location")).header("Token", user.getUserToken()).body(response);
+            return ResponseEntity.created(URI.create("location")).body(response);
         }
+    }
+
+    // Metoda POST do logowania użytkownika
+    @PostMapping("/login/")
+    public ResponseEntity loginUser(@Valid @RequestBody User user) {
+        if (user == null ||
+                user.getUserEmail() == null ||
+                user.getUserEmail().isEmpty() ||
+                user.getUserPassword() == null ||
+                user.getUserPassword().isEmpty()
+        ) {
+            Map<String, String> response = new HashMap<>();
+            response.put("error", "400");
+            response.put("message", "Login failed.");
+            return ResponseEntity.badRequest().body(response);
+        }
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User user1 : users) {
+            if (user1.getUserEmail().equals(user.getUserEmail())) {
+                if (user1.getUserPassword().equals(user.getUserPassword())){
+                    user.setUserToken(UUID.randomUUID().toString());
+                    userRepository.save(user);
+                    Map<String, String> response = new HashMap<>();
+                    response.put("userToken", user.getUserToken());
+                    response.put("userName", user.getUserName());
+                    response.put("userSurname", user.getUserSurname());
+                    response.put("userEmail", user.getUserEmail());
+                    return ResponseEntity.ok().body(response);
+                }
+            }
+        }
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "400");
+        response.put("message", "Login failed.");
+        return ResponseEntity.badRequest().body(response);
+
     }
 
 }
