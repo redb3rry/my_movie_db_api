@@ -106,13 +106,13 @@ public class UserController {
         for (User user1 : users) {
             if (user1.getUserEmail().equals(user.getUserEmail())) {
                 if (user1.getUserPassword().equals(user.getUserPassword())){
-                    user.setUserToken(UUID.randomUUID().toString());
-                    userRepository.save(user);
+                    user1.setUserToken(UUID.randomUUID().toString());
+                    userRepository.save(user1);
                     Map<String, String> response = new HashMap<>();
-                    response.put("userToken", user.getUserToken());
-                    response.put("userName", user.getUserName());
-                    response.put("userSurname", user.getUserSurname());
-                    response.put("userEmail", user.getUserEmail());
+                    response.put("userToken", user1.getUserToken());
+                    response.put("userName", user1.getUserName());
+                    response.put("userSurname", user1.getUserSurname());
+                    response.put("userEmail", user1.getUserEmail());
                     return ResponseEntity.ok().body(response);
                 }
             }
