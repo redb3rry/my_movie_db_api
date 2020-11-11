@@ -62,6 +62,14 @@ public class MyMovieDbApiApplication {
                             "email@gmail.com",
                             "passwd12345678",
                             "1839a268-ce27-402e-bd14-3d8a3c76ab9e"
+                    ));
+            userRepository.save(
+                    new User(
+                            "Imie2",
+                            "Nazwisko2",
+                            "email2@gmail.com",
+                            "haslo12345678",
+                            ""
                     )
             );
         };
