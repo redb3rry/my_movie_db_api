@@ -80,11 +80,7 @@ public class UserController {
         } else {
             user.setUserToken(UUID.randomUUID().toString());
             userRepository.save(user);
-            Map<String, String> response = new HashMap<>();
-            response.put("userToken", user.getUserToken());
-            response.put("userName", user.getUserName());
-            response.put("userSurname", user.getUserSurname());
-            response.put("userEmail", user.getUserEmail());
+            Map<String, String> response = makeGoodBody(user);
             return ResponseEntity.created(URI.create("location")).body(response);
         }
     }
@@ -106,19 +102,14 @@ public class UserController {
         List<User> users = (List<User>) userRepository.findAll();
         for (User user1 : users) {
             if (user1.getUserEmail().equals(user.getUserEmail())) {
-                if (user1.getUserPassword().equals(user.getUserPassword())){
-                    if (user1.getUserToken().equals("") == false) {
-                        Map<String, String> response = new HashMap<>();
-                        response.put("userToken", user1.getUserToken());
+                if (user1.getUserPassword().equals(user.getUserPassword())) {
+                    if (!user1.getUserToken().equals("")) {
+                        Map<String, String> response = makeGoodBody(user1);
                         return ResponseEntity.ok().body(response);
                     }
                     user1.setUserToken(UUID.randomUUID().toString());
                     userRepository.save(user1);
-                    Map<String, String> response = new HashMap<>();
-                    response.put("userToken", user1.getUserToken());
-                    response.put("userName", user1.getUserName());
-                    response.put("userSurname", user1.getUserSurname());
-                    response.put("userEmail", user1.getUserEmail());
+                    Map<String, String> response = makeGoodBody(user1);
                     return ResponseEntity.ok().body(response);
                 }
             }
@@ -136,7 +127,7 @@ public class UserController {
         String token = headers.getFirst("Token");
         List<User> users = (List<User>) userRepository.findAll();
         for (User user1 : users) {
-            if(user1.getUserToken().equals(token)){
+            if (user1.getUserToken().equals(token)) {
                 user1.setUserToken("");
                 userRepository.save(user1);
                 Map<String, String> response = new HashMap<>();
@@ -150,4 +141,12 @@ public class UserController {
         return ResponseEntity.badRequest().body(response);
     }
 
+    private Map<String, String> makeGoodBody(User user) {
+        Map<String, String> response = new HashMap<>();
+        response.put("userToken", user.getUserToken());
+        response.put("userName", user.getUserName());
+        response.put("userSurname", user.getUserSurname());
+        response.put("userEmail", user.getUserEmail());
+        return response;
+    }
 }
