@@ -80,7 +80,7 @@ public class UserCrudMockTest {
     @Transactional
     public void testLogout() throws Exception{
         this.mockMvc.perform(delete("/login/").header("Content-Type","application-json")
-                .header("Token", "testToken")).andDo(print()).andExpect(status().isOk());
+                .header("Token", "1839a268-ce27-402e-bd14-3d8a3c76ab9e")).andDo(print()).andExpect(status().isOk());
     }
 
     //Wywołanie DELETE na login niepoprawne - DO POPRAWY TOKEN
