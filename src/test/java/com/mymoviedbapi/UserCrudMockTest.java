@@ -61,7 +61,7 @@ public class UserCrudMockTest {
     @Transactional
     public void testLogin() throws Exception{
         this.mockMvc.perform(post("/login/").contentType(MediaType.APPLICATION_JSON)
-                .content("{ \"userEmail\": \"testmail@gmail.com\", \"userPassword\": \"testPassword1\" }"))
+                .content("{ \"userEmail\": \"email@gmail.com\", \"userPassword\": \"passwd12345678\" }"))
                 .andDo(print()).andExpect(status().isOk());
     }
 
