@@ -1,6 +1,7 @@
 package com.mymoviedbapi;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -127,6 +128,26 @@ public class UserController {
         response.put("message", "Login failed.");
         return ResponseEntity.badRequest().body(response);
 
+    }
+
+    // Metoda DELETE do wylogowania użytkownika
+    @DeleteMapping("/login/")
+    public ResponseEntity logoutUser(@Valid @RequestHeader HttpHeaders headers) {
+        String token = headers.getFirst("Token");
+        List<User> users = (List<User>) userRepository.findAll();
+        for (User user1 : users) {
+            if(user1.getUserToken().equals(token)){
+                user1.setUserToken("");
+                userRepository.save(user1);
+                Map<String, String> response = new HashMap<>();
+                response.put("message", "Logout correct.");
+                return ResponseEntity.ok().body(response);
+            }
+        }
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "400");
+        response.put("message", "Logout failed.");
+        return ResponseEntity.badRequest().body(response);
     }
 
 }
