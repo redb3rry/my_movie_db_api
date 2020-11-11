@@ -106,6 +106,12 @@ public class UserController {
         for (User user1 : users) {
             if (user1.getUserEmail().equals(user.getUserEmail())) {
                 if (user1.getUserPassword().equals(user.getUserPassword())){
+                    if (user1.getUserToken() != null ||
+                            user1.getUserToken().isEmpty() == false) {
+                        Map<String, String> response = new HashMap<>();
+                        response.put("userToken", user1.getUserToken());
+                        return ResponseEntity.ok().body(response);
+                    }
                     user1.setUserToken(UUID.randomUUID().toString());
                     userRepository.save(user1);
                     Map<String, String> response = new HashMap<>();
