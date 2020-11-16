@@ -65,7 +65,7 @@ public class UserCrudMockTest {
                 .andDo(print()).andExpect(status().isOk());
     }
 
-    //Wywołanie POST na login - niepoprawne dane
+    //Wywołanie POST na login - niepoprawne
     @Test
     @Transactional
     public void testLoginIncorrect() throws Exception{
@@ -75,7 +75,7 @@ public class UserCrudMockTest {
                 .andExpect(jsonPath("$.message").value("Login failed."));
     }
 
-    //Wywołanie DELETE na login - DO POPRAWY TOKEN
+    //Wywołanie DELETE na login - poprawne
     @Test
     @Transactional
     public void testLogout() throws Exception{
@@ -83,7 +83,7 @@ public class UserCrudMockTest {
                 .header("Token", "1839a268-ce27-402e-bd14-3d8a3c76ab9e")).andDo(print()).andExpect(status().isOk());
     }
 
-    //Wywołanie DELETE na login niepoprawne - DO POPRAWY TOKEN
+    //Wywołanie DELETE na login - niepoprawne
     @Test
     @Transactional
     public void testLogoutIncorrect() throws Exception{
